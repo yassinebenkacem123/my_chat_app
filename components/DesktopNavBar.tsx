@@ -28,7 +28,7 @@ const DesktopNavBar = async () => {
                         </SignedIn>
                     </div> 
                 ):(
-                    <div>
+                    <div className='flex items-center gap-4'>
                         <SignedOut>
                            <SignInButton mode='modal'>
                             <Button variant='outline'>Sign In</Button>
