@@ -2,20 +2,23 @@ import React from 'react'
 import Link from 'next/link'
 import DesktopNavBar from './DesktopNavBar'
 import MobileNavBar from './MobileNavBar'
+import ModeToggle from './ui/ModeToggle'
 
 const NavBar = () => {
   return (
-    <nav className='bg-background/90 top-0 supports-[backdrop-filter]:bg-background/60 z-50'>
-        <div className='w-full px-3 md:px-5 lg:px-8 mx-auto'>
-            <div className='flex w-full items-center justify-between h-16'>
-                <Link href='/' className='text-lg font-bold'>
-                 <span>{'('}</span>YB<span>{')'}</span>
-                </Link>
-
-                <DesktopNavBar />
-                {/* <MobileNavBar /> */}
-            </div>
+    <nav className='w-full relative flex shadow-white/20 not-dark:shadow-black/20 justify-between z-100 top-0 px-10 py-4 shadow-sm'>
+      <Link href='/' className='text-3xl  not-dark:text-gray-700 font-bold '>
+        Y
+      </Link>
+      <div className='flex items-center gap-6'>
+        <div  className='border border-white/30 px-5 py-2 not-dark:border-black/20 rounded-md'>
+          <input  type="text" placeholder='Search...' className='outline-none bg-transparent w-full' />
         </div>
+        <ModeToggle />
+        <DesktopNavBar />
+        <MobileNavBar />
+      </div>
+      
     </nav>
   )
 }
