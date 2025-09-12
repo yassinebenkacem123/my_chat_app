@@ -6,8 +6,8 @@ import ModeToggle from './ui/ModeToggle'
 
 const NavBar = () => {
   return (
-    <nav className='w-full relative flex shadow-white/20 not-dark:shadow-black/20 justify-between z-100 top-0 px-10 py-4 shadow-sm'>
-      <Link href='/' className='text-3xl  not-dark:text-gray-700 font-bold '>
+    <nav className='w-full relative flex shadow-white/15 not-dark:shadow-black/10 justify-between z-100 top-0 px-10 py-4 shadow-sm'>
+      <Link href='/' className='text-4xl  text-amber-300 font-bold '>
         Y
       </Link>
       <div className='flex items-center gap-6'>
@@ -18,7 +18,6 @@ const NavBar = () => {
         <DesktopNavBar />
         <MobileNavBar />
       </div>
-      
     </nav>
   )
 }

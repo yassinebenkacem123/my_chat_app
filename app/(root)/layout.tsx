@@ -5,7 +5,7 @@ const layout = ({children}: {children:React.ReactNode}) => {
   return (
     <div>
         <NavBar />
-        <main className='py-6 px-3 md:py-8 md:px-5 '>
+        <main className='py-6 px-8 md:py-8 md:px-10 '>
            {children}
         </main>
     </div>

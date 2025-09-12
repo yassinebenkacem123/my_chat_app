@@ -3,6 +3,18 @@
 
 @custom-variant dark (&:is(.dark *));
 
+.hide-scrollbar::-webkit-scrollbar{
+  display: none;
+
+}
+.hide-scrollbar{
+  scrollbar-width: none;
+}
+@layer utilities{
+  .box-shadow{
+    @apply shadow-[0_1px_7px_0px] shadow-white/20 not-dark:shadow-black/20;
+  }
+}
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
