@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from "next/image";
-import { SmilePlus } from 'lucide-react';
+import { SendHorizontal, SmilePlus } from 'lucide-react';
 import { options } from '@/lib/inedx';
 import { auth } from '@clerk/nextjs/server';
 import prisma from '@/lib/client';
@@ -37,9 +37,7 @@ const AddPost = async () => {
             <button type="button" title="add emojis" className='relative top-8 cursor-pointer hover:scale-103 transition-all duration-300 ease-in-out'>
                 <SmilePlus  size={30}/> 
             </button>
-            <button type='submit' className='absolute cursor-pointer right-0 top-0 bg-amber-400 text-white px-4 py-2 rounded-md hover:scale-105 transition-all duration-300 ease-in-out'>
-                send
-            </button>
+            
         </form>
         {/* option */}
         <div className='flex w-full justify-center gap-7 items-center'>
@@ -51,6 +49,9 @@ const AddPost = async () => {
                 </div>
                 ))
             }
+            <button className='ml-auto  px-4 py-2 rounded-md  font-semibold hover:scale-110 duration-150 cursor-pointer transition-all items-center gap-2'>
+                <SendHorizontal />
+            </button>
         </div>
 
     </div>
