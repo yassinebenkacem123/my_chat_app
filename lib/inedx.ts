@@ -125,3 +125,11 @@ export const userMedia: Media[] = [
         url:"https://static.vecteezy.com/ti/photos-gratuite/t2/36324708-ai-genere-image-de-une-tigre-en-marchant-dans-le-foret-photo.jpg",
     }
 ]
+
+export const options = [
+    {name:'photo', path:'/photo-gallery.png'},
+    {name:'video', path:'/add-movie.png'},
+    {name:'events', path:'/planner.png'},
+    {name:'poll', path:'/polling.png'}, 
+
+]
