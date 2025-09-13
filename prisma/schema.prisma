@@ -1,0 +1,152 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                     String          @id @db.VarChar(100)
+  username               String          @unique
+  avatar                 String?
+  cover                  String?
+  name                   String?
+  surname                String?
+  description            String?
+  country                String?
+  city                   String?
+  work                   String?
+  website                String?
+  createdAt              DateTime        @default(now())
+  isActive               Boolean?        @default(true)
+  lastLogin              DateTime?
+  posts                  Post[]
+  likes                  Like[]
+  comments               Comment[]
+  replies                Reply[]
+  followers              Follower[]      @relation("UserFollowers")
+  following              Follower[]      @relation("UserFollowings")
+  sentFollowRequests     FollowRequest[] @relation("FollowRequestSender")
+  receivedFollowRequests FollowRequest[] @relation("FollowRequestReceiver")
+  blockedUsers           Block[]         @relation("Blocker")
+  blockedByUsers         Block[]         @relation("Blocked")
+  stories                Story[]
+  sentMessages           Message[]       @relation("MessageSender")
+  receivedMessages       Message[]       @relation("MessageReceiver")
+}
+
+model Post {
+  id          Int       @id @default(autoincrement())
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  content     String?
+  mediaType   String?
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String    @db.VarChar(100)
+  likes       Like[]
+  comments    Comment[]
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String   @db.VarChar(100)
+  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    Int?
+  comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  commentId Int?
+  reply     Reply?   @relation(fields: [replyId], references: [id], onDelete: Cascade)
+  replyId   Int?
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  content   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String   @db.VarChar(100)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    Int
+  Likes     Like[]
+  replies   Reply[]
+}
+
+model Reply {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  content   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String   @db.VarChar(100)
+  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  commentId Int
+  Likes     Like[]
+}
+
+model Follower {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  follower    User     @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade)
+  followerId  String   @db.VarChar(100)
+  following   User     @relation("UserFollowings", fields: [followingId], references: [id], onDelete: Cascade)
+  followingId String   @db.VarChar(100)
+}
+
+model FollowRequest {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  sender     User     @relation("FollowRequestSender", fields: [senderId], references: [id], onDelete: Cascade)
+  senderId   String   @db.VarChar(100)
+  receiver   User     @relation("FollowRequestReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+  receiverId String   @db.VarChar(100)
+
+  @@unique([senderId, receiverId])
+}
+
+model Block {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  blocker   User     @relation("Blocker", fields: [blockerId], references: [id], onDelete: Cascade)
+  blockerId String   @db.VarChar(100)
+  blocked   User     @relation("Blocked", fields: [blockedId], references: [id], onDelete: Cascade)
+  blockedId String   @db.VarChar(100)
+
+  @@unique([blockerId, blockedId])
+}
+
+model Story {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  expireAt  DateTime
+  media     String
+  mediaType String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String   @db.VarChar(100)
+  caption   String?
+}
+
+model Message {
+  id         Int      @id @default(autoincrement())
+  content    String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  sender     User     @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
+  senderId   String   @db.VarChar(100)
+  receiver   User     @relation("MessageReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+  receiverId String   @db.VarChar(100)
+  isRead     Boolean? @default(false)
+
+  @@index([senderId, receiverId])
+  @@index([receiverId, senderId])
+}

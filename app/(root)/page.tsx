@@ -7,7 +7,7 @@ export default function Home() {
   return (
    <div className="flex gap-8 min-h-screen">
     <div className="w-[20%]">
-      <LeftMenu />
+      <LeftMenu type="home"/>
     </div>
     <div className="w-[50%]">
       <Stories />
@@ -15,7 +15,7 @@ export default function Home() {
       <Posts />
     </div>
     <div className="w-[30%]">
-      <RightMenu userId="undefined" />
+      <RightMenu userId={''} />
     </div>
    </div>
   );

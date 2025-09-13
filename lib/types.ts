@@ -21,3 +21,8 @@ export type User = {
     name:string,
     userImage:string
 } 
+
+export type Media = {
+    id:number,
+    url:string,
+}
