@@ -49,7 +49,7 @@ const AddPost = async () => {
                 </div>
                 ))
             }
-            <button className='ml-auto  px-4 py-2 rounded-md  font-semibold hover:scale-110 duration-150 cursor-pointer transition-all items-center gap-2'>
+            <button title='send post' type="button" className='ml-auto  px-4 py-2 rounded-md  font-semibold hover:scale-110 duration-150 cursor-pointer transition-all items-center gap-2'>
                 <SendHorizontal />
             </button>
         </div>

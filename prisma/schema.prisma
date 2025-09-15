@@ -15,7 +15,7 @@ datasource db {
 
 model User {
   id                     String          @id @db.VarChar(100)
-  username               String          @unique
+  username               String          @unique @db.VarChar(130)
   avatar                 String?
   cover                  String?
   name                   String?
